@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				
+				<ref bean="flushCountersTrigger"/>
+				<ref bean="flushMessagesTrigger"/>
+				<ref bean="packFilesTrigger"/>
+
+				<ref bean="flushDeliverLogsTrigger"/>
+				<ref bean="flushDeliverVolumnsTrigger"/>
+				
+				<ref bean="checkFileEndpointStatusTrigger"/>
+				<ref bean="scanFileEndpointTrigger"/>
+				
+				<ref bean="checkdtTcpEndpointShortSmsTrigger"/>
+				
+				<ref bean="checkdtTcpEndpointStatusTrigger"/>
+				<ref bean="checkhwNGBOSSTcpEndpointStatusTrigger" />
+				<ref bean="checkcxNGBOSSTcpEndpointStatusTrigger" />
+				
+				<ref bean="checkOcsjmEndpointStatusTrigger"/>
+				<ref bean="scanOcsjmEndpointTrigger"/>
+				
+				<ref bean="checkOcszjEndpointStatusTrigger"/>
+				<ref bean="scanOcszjEndpointTrigger"/>
+				
+				<ref bean="checkOcsmmEndpointStatusTrigger"/>
+				<ref bean="scanOcsmmEndpointTrigger"/>			
+				
+				<ref bean="checkOcsyjEndpointStatusTrigger"/>
+				<ref bean="scanOcsyjEndpointTrigger"/>
+				
+				<ref bean="checkOcsdgEndpointStatusTrigger"/>
+				<ref bean="scanOcsdgEndpointTrigger"/>
+				
+				<ref bean="checkOcshzEndpointStatusTrigger"/>
+				<ref bean="scanOcshzEndpointTrigger"/>
+				
+				<ref bean="checkOcsmzEndpointStatusTrigger"/>
+				<ref bean="scanOcsmzEndpointTrigger"/>
+				
+				<ref bean="checkOcshyEndpointStatusTrigger"/>
+				<ref bean="scanOcshyEndpointTrigger"/>
+				
+					 
+				
+				<ref bean="checkBillfs2002EndpointStatusTrigger"/>
+				<ref bean="scanBillfs2002EndpointTrigger"/>
+				<ref bean="checkBillfs2003EndpointStatusTrigger"/>
+				<ref bean="scanBillfs2003EndpointTrigger"/>				
+				<ref bean="checkBillfs2004EndpointStatusTrigger"/>
+				<ref bean="scanBillfs2004EndpointTrigger"/>
+				
+				<ref bean="checkBillzhEndpointStatusTrigger"/>
+				<ref bean="scanBillzhEndpointTrigger"/>
+
+				<ref bean="checkBillzsEndpointStatusTrigger"/>
+				<ref bean="scanBillzsEndpointTrigger"/>
+
+				<ref bean="checkBillst2006EndpointStatusTrigger"/>
+				<ref bean="scanBillst2006EndpointTrigger"/>				
+				<ref bean="checkBillst2007EndpointStatusTrigger"/>
+				<ref bean="scanBillst2007EndpointTrigger"/>
+				  
+				<ref bean="checkBillswEndpointStatusTrigger"/>
+				<ref bean="scanBillswEndpointTrigger"/>
+				 
+				<ref bean="checkBillyfEndpointStatusTrigger"/>
+				<ref bean="scanBillyfEndpointTrigger"/>
+ 
+				<ref bean="checkBillsgEndpointStatusTrigger"/>
+				<ref bean="scanBillsgEndpointTrigger"/>
+				
+				<ref bean="checkBilljyEndpointStatusTrigger"/>
+				<ref bean="scanBilljyEndpointTrigger"/> 
+
+				<ref bean="checkBillczEndpointStatusTrigger"/>
+				<ref bean="scanBillczEndpointTrigger"/>
+				 
+				<ref bean="checkBillzqEndpointStatusTrigger"/>
+				<ref bean="scanBillzqEndpointTrigger"/>
+				
+				<ref bean="checkBillqyEndpointStatusTrigger"/>
+				<ref bean="scanBillqyEndpointTrigger"/>
+				
+				<!-- 
+				<ref bean="scanEbmTrigger"/>
+				
+				<ref bean="scanFeedbackTrigger" />
+				<ref bean="checkStatusFeedbackTrigger" />
+			 	-->
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="flushCountersJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="matcher"/>
+		<property name="targetMethod" value="flushCounters"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="flushCountersTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="flushCountersJobDetail" />
+		<property name="cronExpression" value="0 0/15 * * * ?" />
+	</bean>
+        
+	<bean id="flushMessagesJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="matcher"/>
+		<property name="targetMethod" value="flushMessages"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="flushMessagesTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="flushMessagesJobDetail" />
+		<property name="cronExpression" value="0 0/5 * * * ?" />
+	</bean>
+        
+	<bean id="packFilesJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="matcher"/>
+		<property name="targetMethod" value="packFiles"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="packFilesTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="packFilesJobDetail" />
+		<property name="cronExpression" value="0 0 3 * * ?" />
+	</bean>
+	
+	<bean id="flushDeliverLogsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="matcher"/>
+		<property name="targetMethod" value="flushDeliverLogs"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="flushDeliverLogsTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="flushDeliverLogsJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	
+	<bean id="flushDeliverVolumnsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="matcher"/>
+		<property name="targetMethod" value="flushDeliveredVolumns"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="flushDeliverVolumnsTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="flushDeliverVolumnsJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	
+	<bean id="checkFileEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="fileEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkFileEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkFileEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	
+	<bean id="scanFileEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="fileEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanFileEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanFileEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<bean id="checkdtTcpEndpointShortSmsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dtTcpEndpoint"/>
+		<property name="targetMethod" value="checkShortSms"/>
+	</bean>
+	<bean id="checkdtTcpEndpointShortSmsTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkdtTcpEndpointShortSmsJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="30000" />
+	</bean>
+
+	<!-- ++++++++++++++++++++++++++ Output duanting TcpEndpoint status info ++++++++++++++++++++++++++ -->
+	<bean id="checkdtTcpEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dtTcpEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkdtTcpEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkdtTcpEndpointStatusJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="30000" />
+	</bean>
+
+	<!-- ++++++++++++++++++++++++++ Output huawei_ngboss TcpEndpoint status info ++++++++++++++++++++++++++ -->
+	<bean id="checkhwNGBOSSTcpEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="hwNGBOSSTcpEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkhwNGBOSSTcpEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkhwNGBOSSTcpEndpointStatusJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="30000" />
+	</bean>
+
+	<!-- ++++++++++++++++++++++++++ Output congxing_ngboss TcpEndpoint status info ++++++++++++++++++++++++++ -->
+	<bean id="checkcxNGBOSSTcpEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cxNGBOSSTcpEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkcxNGBOSSTcpEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkcxNGBOSSTcpEndpointStatusJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="30000" />
+	</bean>
+ 
+	<!-- ++++++++++++++++++++++++++++++++ OCS-define ++++++++++++++++++++++++++++++++ -->
+	<bean id="checkOcsjmEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsjmEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcsjmEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcsjmEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcsjmEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsjmEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcsjmEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcsjmEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkOcszjEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocszjEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcszjEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcszjEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcszjEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocszjEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcszjEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcszjEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+       
+	<bean id="checkOcsmmEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsmmEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcsmmEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcsmmEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcsmmEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsmmEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcsmmEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcsmmEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkOcsyjEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsyjEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcsyjEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcsyjEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcsyjEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsyjEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcsyjEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcsyjEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkOcsdgEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsdgEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcsdgEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcsdgEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcsdgEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsdgEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcsdgEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcsdgEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<bean id="checkOcshzEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocshzEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcshzEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcshzEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcshzEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocshzEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcshzEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcshzEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<bean id="checkOcsmzEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsmzEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcsmzEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcsmzEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcsmzEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocsmzEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcsmzEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcsmzEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<bean id="checkOcshyEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocshyEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkOcshyEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkOcshyEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanOcshyEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ocshyEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanOcshyEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanOcshyEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+
+	<!-- ++++++++++++++++++++++++++++++++ BLL-define ++++++++++++++++++++++++++++++++ -->
+	<bean id="checkBillfs2002EndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billfs2002Endpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillfs2002EndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillfs2002EndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillfs2002EndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billfs2002Endpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillfs2002EndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillfs2002EndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillfs2003EndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billfs2003Endpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+	<property name="concurrent" value="false"/>
+	</bean>
+    <bean id="checkBillfs2003EndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillfs2003EndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillfs2003EndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billfs2003Endpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillfs2003EndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillfs2003EndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<bean id="checkBillfs2004EndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="billfs2004Endpoint"/>
+		   <property name="targetMethod" value="checkStatus"/>
+		   <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillfs2004EndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="checkBillfs2004EndpointStatusJobDetail" />
+		   <property name="startDelay" value="60000" />
+		   <property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillfs2004EndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="billfs2004Endpoint"/>
+		   <property name="targetMethod" value="scan"/>
+		   <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillfs2004EndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="scanBillfs2004EndpointJobDetail" />
+		   <property name="startDelay" value="30000" />
+		   <property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillst2006EndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="billst2006Endpoint"/>
+		   <property name="targetMethod" value="checkStatus"/>
+		   <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillst2006EndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="checkBillst2006EndpointStatusJobDetail" />
+		   <property name="startDelay" value="60000" />
+		   <property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillst2006EndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="billst2006Endpoint"/>
+		   <property name="targetMethod" value="scan"/>
+		   <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillst2006EndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="scanBillst2006EndpointJobDetail" />
+		   <property name="startDelay" value="30000" />
+		   <property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillzhEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzhEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+    <bean id="checkBillzhEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillzhEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+    </bean>
+	<bean id="scanBillzhEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzhEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillzhEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillzhEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillzsEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzsEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+   </bean>
+   <bean id="checkBillzsEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillzsEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+   </bean>
+   <bean id="scanBillzsEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzsEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+   </bean>
+   <bean id="scanBillzsEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillzsEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+   </bean>
+
+	<bean id="checkBillst2007EndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billst2007Endpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillst2007EndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillst2007EndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillst2007EndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billst2007Endpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillst2007EndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillst2007EndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillswEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billswEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+   </bean>
+   <bean id="checkBillswEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillswEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+   </bean>
+   <bean id="scanBillswEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billswEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+   </bean>
+   <bean id="scanBillswEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillswEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+   </bean>
+
+	<bean id="checkBillyfEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billyfEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+   	<bean id="checkBillyfEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillyfEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillyfEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billyfEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillyfEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillyfEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBillsgEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billsgEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillsgEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillsgEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillsgEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billsgEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillsgEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillsgEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+
+	<bean id="checkBilljyEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billjyEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+   	</bean>
+   	<bean id="checkBilljyEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBilljyEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+   	</bean>
+	<bean id="scanBilljyEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billjyEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+   	</bean>
+	<bean id="scanBilljyEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBilljyEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+   </bean>
+       
+	<bean id="checkBillczEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billczEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillczEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillczEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillczEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billczEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillczEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillczEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+       
+	<bean id="checkBillzqEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzqEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillzqEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillzqEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillzqEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billzqEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillzqEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillzqEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+       
+	<bean id="checkBillqyEndpointStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billqyEndpoint"/>
+		<property name="targetMethod" value="checkStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="checkBillqyEndpointStatusTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="checkBillqyEndpointStatusJobDetail" />
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<bean id="scanBillqyEndpointJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="billqyEndpoint"/>
+		<property name="targetMethod" value="scan"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="scanBillqyEndpointTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="scanBillqyEndpointJobDetail" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="15000" />
+	</bean> 
+   
+       
+	
+	<!-- ++++++++++++++++++++++++++++++++ NEW-Ebm ++++++++++++++++++++++++++++++++ 
+    <bean id="scanEbmJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="ebmService"/>
+		   <property name="targetMethod" value="checkAndProcess"/>
+		   <property name="concurrent" value="false"/>
+   </bean>
+   <bean id="scanEbmTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="scanEbmJobDetail" />
+		   <property name="startDelay" value="30000" />
+		   <property name="repeatInterval" value="15000" />
+   </bean>
+   -->
+   
+      <!-- ++++++++++++++++++++++++++++++++ feedback ++++++++++++++++++++++++++++++++ 
+    <bean id="scanFeedbackJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="feedbackdataEndpoint"/>
+		   <property name="targetMethod" value="scan"/>
+		   <property name="concurrent" value="false"/>
+   </bean>
+   <bean id="scanFeedbackTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="scanFeedbackJobDetail" />
+		   <property name="startDelay" value="30000" />
+		   <property name="repeatInterval" value="15000" />
+   </bean>
+   
+	<bean id="checkStatusFeedbackJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		   <property name="targetObject" ref="feedbackdataEndpoint"/>
+		   <property name="targetMethod" value="checkStatus"/>
+		   <property name="concurrent" value="false"/>
+   </bean>
+   <bean id="checkStatusFeedbackTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		   <property name="jobDetail" ref="checkStatusFeedbackJobDetail" />
+		   <property name="startDelay" value="30000" />
+		   <property name="repeatInterval" value="15000" />
+   </bean>
+	-->
+   
+   
+</beans>

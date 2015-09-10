@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+		<!-- foshan -->
+        <bean id="billfs2002Endpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+			<property name="matcher" ref="matcher"/>
+			<property name="inputDir" value="./data/bill/fs/2002/input"/>
+			<property name="outputDir" value="./data/bill/fs/2002/output"/>
+			<property name="backupDir" value="./data/bill/fs/2002/backup"/>
+		</bean>
+		<bean id="billfs2003Endpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/fs/2003/input"/>
+                <property name="outputDir" value="./data/bill/fs/2003/output"/>
+                <property name="backupDir" value="./data/bill/fs/2003/backup"/>
+        </bean>
+        <bean id="billfs2004Endpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/fs/2004/input"/>
+                <property name="outputDir" value="./data/bill/fs/2004/output"/>
+                <property name="backupDir" value="./data/bill/fs/2004/backup"/>
+        </bean>
+
+
+		<!-- zhuhai -->
+		<bean id="billzhEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/zh/input"/>
+                <property name="outputDir" value="./data/bill/zh/output"/>
+                <property name="backupDir" value="./data/bill/zh/backup"/>
+        </bean>
+        	 
+		<!-- zhongshan -->
+		<bean id="billzsEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/zs/input"/>
+                <property name="outputDir" value="./data/bill/zs/output"/>
+                <property name="backupDir" value="./data/bill/zs/backup"/>
+        </bean>
+        
+		<!-- shantou -->
+        <bean id="billst2006Endpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/st/2006/input"/>
+                <property name="outputDir" value="./data/bill/st/2006/output"/>
+                <property name="backupDir" value="./data/bill/st/2006/backup"/>
+        </bean>
+        <bean id="billst2007Endpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/st/2007/input"/>
+                <property name="outputDir" value="./data/bill/st/2007/output"/>
+                <property name="backupDir" value="./data/bill/st/2007/backup"/>
+        </bean>
+		
+		<!-- shanwei -->
+		<bean id="billswEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/sw/input"/>
+                <property name="outputDir" value="./data/bill/sw/output"/>
+                <property name="backupDir" value="./data/bill/sw/backup"/>
+        </bean>
+
+		<!-- yufu -->
+		<bean id="billyfEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/yf/input"/>
+                <property name="outputDir" value="./data/bill/yf/output"/>
+                <property name="backupDir" value="./data/bill/yf/backup"/>
+        </bean>
+ 
+		<!-- shaoguang -->
+		<bean id="billsgEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/sg/input"/>
+                <property name="outputDir" value="./data/bill/sg/output"/>
+                <property name="backupDir" value="./data/bill/sg/backup"/>
+        </bean>
+
+		<!-- jieyan -->
+		<bean id="billjyEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/jy/input"/>
+                <property name="outputDir" value="./data/bill/jy/output"/>
+                <property name="backupDir" value="./data/bill/jy/backup"/>
+        </bean>
+
+		<!-- chaozhou -->
+		<bean id="billczEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/cz/input"/>
+                <property name="outputDir" value="./data/bill/cz/output"/>
+                <property name="backupDir" value="./data/bill/cz/backup"/>
+        </bean>
+         
+		 <!-- zhaoqing -->
+		<bean id="billzqEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/zq/input"/>
+                <property name="outputDir" value="./data/bill/zq/output"/>
+                <property name="backupDir" value="./data/bill/zq/backup"/>
+        </bean>
+  
+		 <!-- qingyuan -->
+		<bean id="billqyEndpoint" class="com.spark.media.endpoint.file.BillEndpointImpl">
+                <property name="matcher" ref="matcher"/>
+                <property name="inputDir" value="./data/bill/qy/input"/>
+                <property name="outputDir" value="./data/bill/qy/output"/>
+                <property name="backupDir" value="./data/bill/qy/backup"/>
+        </bean>
+
+		
+</beans>
