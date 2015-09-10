@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<!-- ===================================================================
+
+Ant build file for ISG Boss App .
+
+=================================================================== -->
+
+<project basedir="." default="help">
+
+
+
+	<path id="classpath">
+		<fileset dir="${basedir}/lib" includes="*.jar" />
+		<pathelement location="${basedir}/bin" />
+	</path>
+	<path id="kpi.classpath">
+		<fileset dir="${basedir}/lib" includes="commons*.jar" />
+		<fileset dir="${basedir}/lib" includes="log4j*.jar" />
+		<fileset dir="${basedir}/lib" includes="slf*.jar" />
+		<pathelement location="${basedir}/bin" />
+	</path>
+
+	 <tstamp prefix="my"> 
+		        <format property="day" pattern="yyyy-MM-dd"/> 
+		        <format property="time" pattern="HH:mm:ss"/> 
+		        <format property="dt" pattern="yyyyMMddHH:mm:ss"/> 
+     </tstamp> 
+	
+
+	<!-- clean compiled class files and output file -->
+	<target name="clean">
+		<delete quiet="true" dir="${basedir}/bin" />
+
+	</target>
+
+	<!-- compile as a separate step -->
+	<target name="compile" depends="clean">
+
+		<echo message="Compiling Java source code" />
+		<mkdir dir="${basedir}/bin" />
+		<javac srcdir="./src" destdir="${basedir}/bin" debug="on" excludes="com/eric/ecgw/boss/entity/**">
+			<classpath refid="classpath" />
+		</javac>
+
+		<copy todir="${basedir}/bin">
+			<fileset dir="./config" includes="*.*" />
+		</copy>
+
+		<delete quiet="true" dir="${basedir}/bin/com/eric/ecgw/boss/entity" />
+
+	</target>
+
+	<target name="tar.gz" depends="compile">
+		<tstamp>
+		<format property="DSTAMP" pattern="yyyyMMddHHmmss"/>
+		</tstamp>
+		<tar destfile="${basedir}/install/boss.${DSTAMP}.tar" basedir="${basedir}" excludes=".*,.*/**,jibx-compile/**,test/**,src/**,install/**" />
+		<gzip src="${basedir}/install/boss.${DSTAMP}.tar" destfile="${basedir}/install/boss.${DSTAMP}.tar.gz" />
+	</target>
+
+	<!-- test binding with jibx-extras roundtripping tool -->
+	<target name="run.boss" depends="">
+		<echo message="runing..." />
+		<java classname="com.eric.ecgw.boss.imp.BOSS" fork="true" failonerror="true">
+			<classpath refid="classpath" />
+
+		</java>
+		<echo message="successful" />
+	</target>
+
+	<target name="run.boss.jmx" depends="">
+		<echo message="runing with jmx...." />
+		<java classname="com.eric.ecgw.boss.imp.jmx.Boss" fork="true" failonerror="true">
+			<classpath refid="classpath" />
+
+		</java>
+		<echo message="successful" />
+	</target>
+
+	<target name="run.kpi" depends="">
+		<echo message="runing with jmx...." />
+		<java classname="com.eric.ecgw.boss.imp.KPIFileProcessor" fork="true" failonerror="true">
+			<classpath refid="kpi.classpath" />
+
+		</java>
+		<echo message="successful" />
+	</target>
+	
+	  <target name="run.virus" depends="">
+			<echo message="runing with jmx...." />
+			<java classname="com.eric.ecgw.boss.FileController" fork="true" failonerror="true">
+				<classpath refid="kpi.classpath" />
+                <arg value="virus.properties"/>
+				<arg value="virus.assemble.log4j.properties"/>
+			</java>
+			<echo message="successful" />
+		</target>
+	    <target name="run.boss.assemble" depends="">
+				<echo message="runing with jmx...." />
+				<java classname="com.eric.ecgw.boss.FileController" fork="true" failonerror="true">
+					<classpath refid="kpi.classpath" />
+	                <arg value="boss.assemble.properties"/>
+					 <arg value="boss.assemble.log4j.properties"/>
+				</java>
+				<echo message="successful" />
+			</target>
+	
+	  
+	
+
+	<!-- show list of targets -->
+	<target name="help">
+		<echo message="Targets are:" />
+		<echo />
+		<echo message="clean          delete all class files and generated code" />
+
+		<echo message="compile        compile class files as a separate step" />
+
+		<echo message="tar.gz         tar an gzip for deployment" />
+
+		<echo message="run.boss        run the  application" />
+		<echo message="run.boss.jmx    run the  application with JMX" />
+
+		<echo message="run.kpi    run the kpi file  application " />
+		<echo message="run.virus    run the virus file  application " />
+		<echo message="run.boss.assemble    run the boss file  application " />
+
+	</target>
+
+</project>

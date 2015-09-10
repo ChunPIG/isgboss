@@ -1,0 +1,125 @@
+<binding>
+    <mapping name="TrafficEventData" class="com.eric.ecgw.boss.entity.TrafficEventData" ordered="false" allow-repeats="true">
+        <collection field="TE0s" usage="optional"> 
+            <structure name="TE0" type="com.eric.ecgw.boss.entity.TE0" flexible="true" ordered="false" allow-repeats="true"> 
+                <value  name="E0" field="e0"/> 
+                <value  name="E1" field="e1"/> 
+                <value  name="E3" field="e3" usage="optional"/> 
+                <value  name="E4" field="e4" usage="optional"/> 
+                <value  name="E5" field="e5" usage="optional"/> 
+                <value  name="E6" field="e6" usage="optional"/> 
+                <value  name="E7" field="e7" usage="optional"/> 
+                <value  name="E8" field="e8" usage="optional"/>
+                <value  name="E15" field="e15" usage="optional"/> 
+                <value  name="E18" field="e18" usage="optional"/> 
+                <value  name="E21" field="e21" usage="optional"/> 
+                <value  name="E25" field="e25" usage="optional"/> 
+                <value  name="E26" field="e26" usage="optional"/> 
+                <value  name="E30" field="e30" usage="optional"/> 
+                
+               
+                <value  name="E38" field="e38" usage="optional"/> 
+                <value  name="E41" field="e41" usage="optional"/> 
+                <value  name="E42" field="e42" usage="optional"/> 
+                <value  name="E43" field="e43" usage="optional"/> 
+                <value  name="E52" field="e52" usage="optional"/> 
+                
+                <value  name="E58" field="e58" usage="optional"/> 
+                <value  name="E77" field="e77" usage="optional"/> 
+                
+                <value  name="E81" field="e81" usage="optional"/> 
+                <value  name="E82" field="e82" usage="optional"/> 
+                <value  name="E99" field="e99" usage="optional"/> 
+                
+               
+                <value  name="E108" field="e108" usage="optional"/> 
+                <value  name="E109" field="e109" usage="optional"/> 
+                <value  name="E110" field="e110" usage="optional"/> 
+                <value  name="E111" field="e111" usage="optional"/> 
+                <value  name="E112" field="e112" usage="optional"/> 
+                <value  name="E113" field="e113" usage="optional"/> 
+                <value  name="E114" field="e114" usage="optional"/> 
+                <value  name="E115" field="e115" usage="optional"/> 
+                <value  name="E116" field="e116" usage="optional"/> 
+                <value  name="E117" field="e117" usage="optional"/> 
+                
+                <value  name="E119" field="e119" usage="optional"/>
+                <value  name="E120" field="e120" usage="optional"/> 
+                <value  name="E121" field="e121" usage="optional"/>
+                <value  name="E130" field="e130" usage="optional"/> 
+                <value  name="E143" field="e143" usage="optional"/> 
+                <value  name="E148" field="e148" usage="optional"/>
+            </structure>
+        </collection> 
+        <collection field="TE1s" usage="optional"> 
+            <structure name="TE1" type="com.eric.ecgw.boss.entity.TE1" flexible="true" ordered="false" allow-repeats="true"> 
+                <value  name="E0" field="e0"/> 
+                <value  name="E1" field="e1"/> 
+                <value  name="E8" field="e8" usage="optional"/> 
+                <value  name="E10" field="e10" usage="optional"/> 
+                <value  name="E19" field="e19" usage="optional"/> 
+                <value  name="E35" field="e35" usage="optional"/> 
+                <value  name="E47" field="e47" usage="optional"/> 
+                <value  name="E48" field="e48" usage="optional"/> 
+            </structure>
+        </collection> 
+        <collection field="TE2s" usage="optional"> 
+            <structure name="TE2" type="com.eric.ecgw.boss.entity.TE2" flexible="true" ordered="false" allow-repeats="true"> 
+                <value  name="E0" field="e0"/> 
+                <value  name="E1" field="e1"/> 
+                <value  name="E8" field="e8" usage="optional"/> 
+                <value  name="E10" field="e10" usage="optional"/> 
+                <value  name="E14" field="e14" usage="optional"/> 
+                <value  name="E31" field="e31" usage="optional"/> 
+                 <value  name="E35" field="e35" usage="optional"/> 
+                <value  name="E48" field="e48" usage="optional"/> 
+                <value  name="E55" field="e55" usage="optional"/> 
+                <value  name="E73" field="e73" usage="optional"/> 
+            </structure>
+        </collection> 
+      
+        <collection field="TE22s" usage="optional"> 
+            <structure name="TE22" type="com.eric.ecgw.boss.entity.TE22" flexible="true" ordered="false" allow-repeats="true"> 
+                <value  name="E3" field="e3" />               
+                <value  name="E15" field="e15" usage="optional"/> 
+                <value  name="E26" field="e26" usage="optional"/> 
+                <value  name="E30" field="e30" usage="optional"/>    
+                <value  name="E52" field="e52" usage="optional"/>    
+                <value  name="E81" field="e81" usage="optional"/>              
+                <value  name="E144" field="e144" usage="optional"/> 
+                <value  name="E145" field="e145" usage="optional"/> 
+                <value  name="E146" field="e146" usage="optional"/>                
+            </structure>
+        </collection> 
+        
+        <collection field="TE23s" usage="optional"> 
+            <structure name="TE23" type="com.eric.ecgw.boss.entity.TE23" flexible="true" ordered="false" allow-repeats="true"> 
+               <value  name="E3" field="e3" />               
+                <value  name="E15" field="e15" usage="optional"/> 
+                <value  name="E26" field="e26" usage="optional"/> 
+                <value  name="E30" field="e30" usage="optional"/>    
+                <value  name="E52" field="e52" usage="optional"/>    
+                <value  name="E81" field="e81" usage="optional"/>              
+                <value  name="E144" field="e144" usage="optional"/> 
+                <value  name="E145" field="e145" usage="optional"/> 
+                <value  name="E146" field="e146" usage="optional"/>                
+            </structure>
+        </collection> 
+        
+        <collection field="TE24s" usage="optional"> 
+            <structure name="TE24" type="com.eric.ecgw.boss.entity.TE24" flexible="true" ordered="false" allow-repeats="true"> 
+               <value  name="E3" field="e3" />               
+                <value  name="E15" field="e15" usage="optional"/> 
+                <value  name="E26" field="e26" usage="optional"/> 
+                <value  name="E30" field="e30" usage="optional"/>    
+                <value  name="E52" field="e52" usage="optional"/>    
+                <value  name="E81" field="e81" usage="optional"/>              
+                <value  name="E144" field="e144" usage="optional"/> 
+                <value  name="E145" field="e145" usage="optional"/> 
+                <value  name="E146" field="e146" usage="optional"/>                 
+            </structure>
+        </collection> 
+        
+      
+    </mapping> 
+</binding>

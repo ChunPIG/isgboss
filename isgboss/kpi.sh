@@ -1,0 +1,1 @@
+/usr/java/jdk1.6.0_29/jre/bin/java   -classpath /opt/isg/boss/lib/commons-io-2.1.jar:/opt/isg/boss/lib/commons-lang-2.5.jar:/opt/isg/boss/lib/commons-net-3.0.1.jar:/opt/isg/boss/lib/log4j-1.2.14.jar:/opt/isg/boss/bin com.eric.ecgw.boss.imp.KPIFileProcessor
